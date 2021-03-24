@@ -1,0 +1,33 @@
+#!/usr/bin/env python3
+
+import sys, Gauss
+from Error import *
+
+def main():
+    if (len(sys.argv) == 2 and (sys.argv[1] == "-h" or sys.argv[1] == "--help")):
+        print("USAGE\n\t./306radiator n ir jr [i j]\nDESCRIPTION\n\tn\t\tsize of the room\n\t(ir, jr)\tcoordinates of the radiator\n\t(i, j)\t\tcoordinates of a point in the room")
+        sys.exit(0)
+    if len(sys.argv) == 4 or len(sys.argv) == 6:
+        list_gauss = []
+        try:
+            for i in range(1, len(sys.argv)):
+                list_gauss.append(int(sys.argv[i]))
+        except:
+            error_message("All arguments must be integers.")
+    else:
+        error_message("USAGE\n\t./306radiator n ir jr [i j]\nDESCRIPTION\n\tn\t\tsize of the room\n\t(ir, jr)\tcoordinates of the radiator\n\t(i, j)\t\tcoordinates of a point in the room")
+    if (len(sys.argv) == 4):
+        my_gauss = Gauss.Gauss(list_gauss, True)
+    else:
+        my_gauss = Gauss.Gauss(list_gauss, False)
+    my_gauss.build_A_matrix()
+    my_gauss.build_X_vector()
+    if (len(sys.argv) == 4):
+        my_gauss.display_A_matrix()
+        print("")
+    my_gauss.calc_X_result()
+    my_gauss.display_X_vector()
+    
+if __name__ == '__main__':
+    main()
+    sys.exit(0)
